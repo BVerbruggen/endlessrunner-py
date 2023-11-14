@@ -35,10 +35,11 @@ font = pygame.font.SysFont("Arial", 32)
 
 # Initialize pygame's joystick module
 pygame.joystick.init()  # Initialize the joystick module
-joystick = pygame.joystick.Joystick(
-    0
-)  # Create a joystick object for the first joystick
-joystick.init()  # Enable the joystick to receive events
+if pygame.joystick.get_count() > 0:
+    joystick = pygame.joystick.Joystick(
+        0
+    )  # Create a joystick object for the first joystick
+    joystick.init()  # Enable the joystick to receive events
 
 
 # Create a player sprite that can jump with the spacebar

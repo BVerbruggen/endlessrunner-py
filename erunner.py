@@ -89,7 +89,7 @@ class Player(pygame.sprite.Sprite):
         # check if joystick is connected
 
         if (
-            (joystick.get_init and joystick.get_button(0) == 1)
+            (joystick and joystick.get_init and joystick.get_button(0) == 1)
             or pygame.key.get_pressed()[pygame.K_SPACE] == 1
         ) and self.on_ground:
             # Set the speed to jump and set the flag to false

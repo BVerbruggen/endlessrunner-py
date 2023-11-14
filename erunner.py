@@ -33,6 +33,13 @@ clock = pygame.time.Clock()
 # Create a font to render text
 font = pygame.font.SysFont("Arial", 32)
 
+# Initialize pygame's joystick module
+pygame.joystick.init()  # Initialize the joystick module
+joystick = pygame.joystick.Joystick(
+    0
+)  # Create a joystick object for the first joystick
+joystick.init()  # Enable the joystick to receive events
+
 
 # Create a player sprite that can jump with the spacebar
 class Player(pygame.sprite.Sprite):
@@ -58,8 +65,32 @@ class Player(pygame.sprite.Sprite):
         self.speed_y += GRAVITY  # Apply gravity
 
         # Check if the spacebar is pressed and the player is on the ground
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE] and self.on_ground:
+        # keys = pygame.key.get_pressed()
+        # if keys[pygame.K_SPACE] and self.on_ground:
+        #     # Set the speed to jump and set the flag to false
+        #     self.speed_y = JUMP_SPEED
+        #     self.on_ground = False
+
+        # if a joystick button event is detected or the spacebar is pressed and the player is on the ground
+        # if (
+        #     pygame.JOYBUTTONDOWN in [event.type for event in pygame.event.get()]
+        #     or pygame.key.get_pressed()[pygame.K_SPACE] == 1
+        # ) and self.on_ground:
+        #     # Set the speed to jump and set the flag to false
+        #     self.speed_y = JUMP_SPEED
+        #     self.on_ground = False
+        # for event in pygame.event.get():
+        #     print(event)
+        #     if event.type == pygame.JOYBUTTONDOWN and self.on_ground:
+        #         # Set the speed to jump and set the flag to false
+        #         self.speed_y = JUMP_SPEED
+        #         self.on_ground = False
+        # check if joystick is connected
+
+        if (
+            (joystick.get_init and joystick.get_button(0) == 1)
+            or pygame.key.get_pressed()[pygame.K_SPACE] == 1
+        ) and self.on_ground:
             # Set the speed to jump and set the flag to false
             self.speed_y = JUMP_SPEED
             self.on_ground = False
@@ -230,6 +261,8 @@ def main():
         # Control the frame rate
         clock.tick(60)
 
+    # Uninitialize pygame's joystick module
+    # pygame.joystick.quit()
     # Quit pygame and exit the program
     pygame.quit()
     exit()

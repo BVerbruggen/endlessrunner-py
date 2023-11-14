@@ -33,6 +33,7 @@ clock = pygame.time.Clock()
 # Create a font to render text
 font = pygame.font.SysFont("Arial", 32)
 
+joystick = None
 # Initialize pygame's joystick module
 pygame.joystick.init()  # Initialize the joystick module
 if pygame.joystick.get_count() > 0:
